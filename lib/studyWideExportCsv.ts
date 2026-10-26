@@ -142,6 +142,7 @@ function maxChatDepth(participants: WideExportParticipant[]): number {
 
 function courseInstructorLabel(raw: unknown): string {
   if (raw === "cristin_hall") return "Dr. Cristin Hall";
+  if (raw === "matt_mccrudden") return "Dr. Matt McCrudden";
   if (raw === "rayne_sperling") return "Dr. Rayne Sperling";
   if (raw === "other") return "Other";
   return raw == null || raw === "" ? "" : String(raw);

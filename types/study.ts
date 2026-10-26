@@ -20,6 +20,7 @@ export interface ChatMessage {
 
 export type CourseInstructorChoice =
   | "cristin_hall"
+  | "matt_mccrudden"
   | "rayne_sperling"
   | "other";
 

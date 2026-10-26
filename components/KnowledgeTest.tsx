@@ -104,18 +104,20 @@ export function KnowledgeTest({ which, onSubmit }: Props) {
       {KNOWLEDGE_MC_ITEMS.map((item, index) => (
         <fieldset
           key={item.id}
-          className="rounded-2xl border border-student-border bg-white px-5 py-5 shadow-sm"
+          className="rounded-2xl border border-student-border bg-white px-6 py-6 shadow-sm"
         >
-          <legend className="text-sm font-semibold leading-relaxed text-student-ink">
-            {index + 1}. {item.stem}
-          </legend>
-          <div className="mt-3 space-y-2">
+          <legend className="sr-only">Question {index + 1}</legend>
+          <p className="text-base font-semibold leading-7 text-student-ink">
+            <span className="mr-2 tabular-nums text-teal-800">{index + 1}.</span>
+            {item.stem}
+          </p>
+          <div className="mt-4 space-y-2">
             {item.options.map((option, optionIndex) => {
               const letter = MC_LETTERS[optionIndex];
               return (
                 <label
                   key={letter}
-                  className="flex cursor-pointer gap-3 rounded-xl border border-student-border px-3 py-2.5 text-sm leading-relaxed text-student-ink hover:bg-teal-50/60"
+                  className="flex cursor-pointer gap-3 rounded-xl border border-student-border px-4 py-3 text-base leading-7 text-student-ink hover:bg-teal-50/60"
                 >
                   <input
                     type="radio"
@@ -137,11 +139,11 @@ export function KnowledgeTest({ which, onSubmit }: Props) {
       {KNOWLEDGE_CR_ITEMS.map((item, index) => (
         <div
           key={item.id}
-          className="rounded-2xl border border-student-border bg-white px-5 py-5 shadow-sm"
+          className="rounded-2xl border border-student-border bg-white px-6 py-6 shadow-sm"
         >
           <label
             htmlFor={item.id}
-            className="text-sm font-semibold leading-relaxed text-student-ink"
+            className="block text-base font-semibold leading-7 text-student-ink"
           >
             {KNOWLEDGE_MC_ITEMS.length + index + 1}. {item.prompt}
           </label>
@@ -150,7 +152,7 @@ export function KnowledgeTest({ which, onSubmit }: Props) {
             value={cr[index]}
             onChange={(e) => editCr(index, e.target.value)}
             rows={5}
-            className="mt-3 w-full rounded-xl border border-student-border px-3 py-3 text-sm leading-relaxed text-student-ink focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/20"
+            className="mt-4 w-full rounded-xl border border-student-border px-4 py-3 text-base leading-7 text-student-ink focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/20"
             placeholder="Write your answer…"
           />
         </div>

@@ -171,7 +171,14 @@ export default function StudyPage() {
   }
 
   const { step, total } = getPhaseProgress(phase);
-  const wideMain = phase === "essay";
+  const mainWidth =
+    phase === "essay"
+      ? "max-w-[1920px]"
+      : phase === "aiali" || phase === "trust"
+        ? "max-w-5xl"
+        : phase === "task_intro"
+          ? "max-w-3xl"
+          : "max-w-4xl";
   const allSourcesOpened = READINGS.every((reading) =>
     downloadedIds.includes(reading.id),
   );
@@ -207,9 +214,7 @@ export default function StudyPage() {
       </header>
 
       <main
-        className={`mx-auto px-3 pt-8 sm:px-4 ${
-          wideMain ? "max-w-[1920px]" : "max-w-4xl"
-        }`}
+        className={`mx-auto px-3 pt-8 sm:px-4 ${mainWidth}`}
       >
         {phase === "study_consent" && (
           <InformedConsentScreen
@@ -259,10 +264,8 @@ export default function StudyPage() {
 
         {phase === "task_intro" && (
           <div className="mx-auto max-w-3xl space-y-6 pb-12">
-            <div className="rounded-2xl border border-amber-200/80 bg-gradient-to-br from-amber-50 to-orange-50/50 px-5 py-6 shadow-student sm:px-7">
-              <TaskMaterials />
-            </div>
-            <p className="text-sm text-student-muted">
+            <TaskMaterials />
+            <p className="text-base leading-7 text-student-muted">
               Next you will download the three readings. They stay available while
               you write.
             </p>

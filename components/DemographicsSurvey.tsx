@@ -274,6 +274,16 @@ export function DemographicsSurvey({ onSubmit }: Props) {
             />
             <span>Dr. Rayne Sperling</span>
           </label>
+          <label className="flex cursor-pointer items-start gap-3 text-sm text-student-ink">
+            <input
+              type="radio"
+              name="courseInstructor"
+              checked={courseInstructor === "matt_mccrudden"}
+              onChange={() => setCourseInstructor("matt_mccrudden")}
+              className="mt-1 h-4 w-4 shrink-0 border-student-border text-teal-600 focus:ring-teal-500"
+            />
+            <span>Dr. Matt McCrudden</span>
+          </label>
           <div className="space-y-2">
             <label className="flex cursor-pointer items-start gap-3 text-sm text-student-ink">
               <input
