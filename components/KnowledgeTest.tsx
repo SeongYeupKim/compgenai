@@ -1,0 +1,173 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import {
+  KNOWLEDGE_CR_ITEMS,
+  KNOWLEDGE_MC_ITEMS,
+  MC_LETTERS,
+} from "@/lib/scales";
+import type { KnowledgeSubmission } from "@/types/study";
+
+type Props = {
+  which: "prior" | "post";
+  onSubmit: (submission: KnowledgeSubmission) => Promise<void>;
+};
+
+export function KnowledgeTest({ which, onSubmit }: Props) {
+  const startedAt = useMemo(() => new Date().toISOString(), []);
+  const [mc, setMc] = useState<(string | null)[]>(() =>
+    KNOWLEDGE_MC_ITEMS.map(() => null),
+  );
+  const [mcAt, setMcAt] = useState<(string | null)[]>(() =>
+    KNOWLEDGE_MC_ITEMS.map(() => null),
+  );
+  const [cr, setCr] = useState<string[]>(() =>
+    KNOWLEDGE_CR_ITEMS.map(() => ""),
+  );
+  const [crAt, setCrAt] = useState<(string | null)[]>(() =>
+    KNOWLEDGE_CR_ITEMS.map(() => null),
+  );
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const complete =
+    mc.every((a) => a !== null) && cr.every((a) => a.trim().length > 0);
+
+  function chooseMc(index: number, letter: string) {
+    const now = new Date().toISOString();
+    setMc((prev) => {
+      const next = [...prev];
+      next[index] = letter;
+      return next;
+    });
+    setMcAt((prev) => {
+      if (prev[index]) return prev;
+      const next = [...prev];
+      next[index] = now;
+      return next;
+    });
+  }
+
+  function editCr(index: number, value: string) {
+    const now = new Date().toISOString();
+    setCr((prev) => {
+      const next = [...prev];
+      next[index] = value;
+      return next;
+    });
+    setCrAt((prev) => {
+      if (prev[index]) return prev;
+      const next = [...prev];
+      next[index] = now;
+      return next;
+    });
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!complete) return;
+    setSaving(true);
+    setError(null);
+    try {
+      await onSubmit({
+        mcAnswers: mc as string[],
+        crAnswers: cr.map((a) => a.trim()),
+        mcAnsweredAt: mcAt,
+        crAnsweredAt: crAt,
+        startedAt,
+        completedAt: new Date().toISOString(),
+      });
+    } catch {
+      setError("Could not save. Try again.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  const title =
+    which === "prior" ? "What you know now" : "What you know after the task";
+  const intro =
+    which === "prior"
+      ? "Answer from your own knowledge. The readings and the chatbot come later. Choose one option for each multiple-choice item, then write a short answer for each open question."
+      : "Answer again from what you know now. The readings and the chatbot are not available on this page. Choose one option for each item, then write a short answer for each open question.";
+
+  return (
+    <form
+      onSubmit={(e) => void handleSubmit(e)}
+      className="mx-auto max-w-3xl space-y-6 pb-12"
+    >
+      <div className="rounded-2xl border border-student-border bg-student-card px-5 py-6 shadow-student sm:px-8">
+        <h2 className="text-xl font-semibold text-student-ink">{title}</h2>
+        <p className="mt-3 text-sm leading-relaxed text-student-muted">{intro}</p>
+      </div>
+
+      {KNOWLEDGE_MC_ITEMS.map((item, index) => (
+        <fieldset
+          key={item.id}
+          className="rounded-2xl border border-student-border bg-white px-5 py-5 shadow-sm"
+        >
+          <legend className="text-sm font-semibold leading-relaxed text-student-ink">
+            {index + 1}. {item.stem}
+          </legend>
+          <div className="mt-3 space-y-2">
+            {item.options.map((option, optionIndex) => {
+              const letter = MC_LETTERS[optionIndex];
+              return (
+                <label
+                  key={letter}
+                  className="flex cursor-pointer gap-3 rounded-xl border border-student-border px-3 py-2.5 text-sm leading-relaxed text-student-ink hover:bg-teal-50/60"
+                >
+                  <input
+                    type="radio"
+                    name={item.id}
+                    className="mt-1 h-4 w-4 accent-teal-700"
+                    checked={mc[index] === letter}
+                    onChange={() => chooseMc(index, letter)}
+                  />
+                  <span>
+                    <span className="font-semibold">{letter}.</span> {option}
+                  </span>
+                </label>
+              );
+            })}
+          </div>
+        </fieldset>
+      ))}
+
+      {KNOWLEDGE_CR_ITEMS.map((item, index) => (
+        <div
+          key={item.id}
+          className="rounded-2xl border border-student-border bg-white px-5 py-5 shadow-sm"
+        >
+          <label
+            htmlFor={item.id}
+            className="text-sm font-semibold leading-relaxed text-student-ink"
+          >
+            {KNOWLEDGE_MC_ITEMS.length + index + 1}. {item.prompt}
+          </label>
+          <textarea
+            id={item.id}
+            value={cr[index]}
+            onChange={(e) => editCr(index, e.target.value)}
+            rows={5}
+            className="mt-3 w-full rounded-xl border border-student-border px-3 py-3 text-sm leading-relaxed text-student-ink focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/20"
+            placeholder="Write your answer…"
+          />
+        </div>
+      ))}
+
+      {error && (
+        <p className="text-sm text-red-600" role="alert">
+          {error}
+        </p>
+      )}
+      <button
+        type="submit"
+        disabled={!complete || saving}
+        className="rounded-2xl bg-teal-600 px-6 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-teal-700 disabled:opacity-50"
+      >
+        {saving ? "Saving…" : "Continue"}
+      </button>
+    </form>
+  );
+}
