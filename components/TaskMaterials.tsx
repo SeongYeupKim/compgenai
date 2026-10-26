@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { CaseReading } from "@/components/CaseReading";
 import {
   CASE_PARAGRAPHS,
   CASE_TITLE,
@@ -40,7 +41,15 @@ export function TaskRequirements() {
   );
 }
 
-export function TaskMaterials({ caseOnly = false }: { caseOnly?: boolean }) {
+export function TaskMaterials({
+  caseOnly = false,
+  readerId,
+}: {
+  caseOnly?: boolean;
+  readerId?: string;
+}) {
+  if (caseOnly) return <CaseReading readerId={readerId} />;
+
   const caseCard = (
     <article className="border border-student-border bg-white px-6 py-6 sm:px-7">
       <p className="text-xs font-semibold uppercase tracking-widest text-navy-800">
@@ -49,19 +58,13 @@ export function TaskMaterials({ caseOnly = false }: { caseOnly?: boolean }) {
       <h2 className="mt-2 text-xl font-semibold leading-snug text-student-ink">
         {CASE_TITLE}
       </h2>
-      <div
-        className={`mt-4 space-y-4 text-base leading-7 text-student-ink ${
-          caseOnly ? "case-scroll max-h-72 pr-3" : ""
-        }`}
-      >
+      <div className="mt-4 space-y-4 text-base leading-7 text-student-ink">
         {CASE_PARAGRAPHS.map((paragraph) => (
           <p key={paragraph.slice(0, 48)}>{paragraph}</p>
         ))}
       </div>
     </article>
   );
-
-  if (caseOnly) return caseCard;
 
   return (
     <div className="grid items-start gap-4 lg:grid-cols-2">

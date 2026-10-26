@@ -19,6 +19,17 @@ body {
     @apply text-brand-600 underline;
   }
 
+  .case-hide-native {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .case-hide-native::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
   .case-scroll {
     overflow-y: scroll;
     scrollbar-gutter: stable;

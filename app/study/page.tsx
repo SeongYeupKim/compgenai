@@ -323,7 +323,7 @@ export default function StudyPage() {
 
         {phase === "essay" && (
           <div className="mx-auto w-full space-y-6 pb-8">
-            <TaskMaterials caseOnly />
+            <TaskMaterials caseOnly readerId={uid} />
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:items-stretch">
               <div className="h-[min(78vh,760px)] min-h-0 min-w-0">
                 <GenAIInteractionPanel
