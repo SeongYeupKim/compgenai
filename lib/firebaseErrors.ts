@@ -17,8 +17,12 @@ export function formatAuthError(err: unknown): string {
       "Password is too weak. Use at least 8 characters with a mix of characters.",
     "auth/operation-not-allowed":
       "Email/password sign-in is turned off in Firebase. In Firebase Console → Authentication → Sign-in method, enable Email/Password.",
+    "app/missing-firebase-config":
+      err instanceof Error
+        ? err.message
+        : "This deployment was built without the Firebase keys. Set NEXT_PUBLIC_FIREBASE_* for Production, then redeploy.",
     "auth/invalid-api-key":
-      "Firebase API key doesn’t match this project. Check NEXT_PUBLIC_FIREBASE_* in Vercel (or .env.local) matches Firebase → Project settings.",
+      "Firebase rejected the API key in this build. Copy apiKey, authDomain, projectId, storageBucket, messagingSenderId, and appId from the same Firebase web app config, set all six NEXT_PUBLIC_FIREBASE_* variables for Production, then redeploy.",
     "auth/network-request-failed":
       "Network error. Check your connection, VPN, or try again.",
     "auth/too-many-requests":
