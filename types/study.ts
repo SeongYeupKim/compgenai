@@ -7,6 +7,7 @@ export type StudyPhase =
   | "task_intro"
   | "sources"
   | "essay"
+  | "source_reflection"
   | "post_knowledge"
   | "demographics"
   | "submission_guide"
@@ -50,6 +51,17 @@ export interface SourceDownloadEvent {
   downloadedAt: string;
 }
 
+export interface SourceUseRating {
+  sourceId: string;
+  rating: number;
+  reason: string;
+}
+
+export interface SourceUseReflection {
+  ratings: SourceUseRating[];
+  completedAt: string;
+}
+
 export interface UserStudyDoc {
   email?: string;
   studyKey?: string;
@@ -74,6 +86,9 @@ export interface UserStudyDoc {
   genaiMessages?: ChatMessage[];
   essayText?: string;
   essaySubmittedAt?: string;
+  sourceUseReflectionStartedAt?: string;
+  sourceUseReflection?: SourceUseReflection;
+  sourceUseReflectionCompletedAt?: string;
   postKnowledge?: KnowledgeSubmission;
   postKnowledgeStartedAt?: string;
   postKnowledgeCompletedAt?: string;

@@ -18,7 +18,7 @@ export const INFORMED_CONSENT_SECTIONS: {
   {
     heading: "2. Procedures to be followed",
     paragraphs: [
-      "You will sign in, answer questionnaires about generative AI, and complete a short knowledge check. You will then read a classroom case, download three assigned readings, and write an essay of no more than 550 words. A chatbot is available beside the essay. After the essay you will complete the knowledge check again, a short demographics form, and download a personal record of your essay and chat history to upload to Canvas.",
+      "You will sign in, answer questionnaires about generative AI, and complete a short knowledge check. You will then read a classroom case, download three assigned readings, and write an essay of no more than 550 words. A chatbot is available beside the essay. After the essay you will rate how much you used each reading and the chatbot and explain those ratings. You will then complete the knowledge check again, a short demographics form, and download a personal record of your essay and chat history to upload to Canvas.",
       "Proceeding with the study after reading this information indicates that you are consenting to participate in this research.",
     ],
   },

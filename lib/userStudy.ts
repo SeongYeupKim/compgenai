@@ -7,6 +7,7 @@ import type {
   DemographicsSubmission,
   KnowledgeSubmission,
   SourceDownloadEvent,
+  SourceUseReflection,
   StudyPhase,
   UserStudyDoc,
 } from "@/types/study";
@@ -184,6 +185,20 @@ export async function saveEssay(
     essayText,
     genaiMessages,
     essaySubmittedAt: now,
+    phase: "source_reflection" as StudyPhase,
+    updatedAt: now,
+  });
+}
+
+export async function saveSourceReflection(
+  uid: string,
+  submission: SourceUseReflection,
+) {
+  const db = getClientDb();
+  const now = new Date().toISOString();
+  await updateDoc(doc(db, STUDY_COLLECTION, uid), {
+    sourceUseReflection: submission,
+    sourceUseReflectionCompletedAt: submission.completedAt || now,
     phase: "post_knowledge" as StudyPhase,
     updatedAt: now,
   });
@@ -248,6 +263,9 @@ export async function resetStudyFromBeginning(uid: string) {
     genaiMessages: deleteField(),
     essayText: deleteField(),
     essaySubmittedAt: deleteField(),
+    sourceUseReflectionStartedAt: deleteField(),
+    sourceUseReflection: deleteField(),
+    sourceUseReflectionCompletedAt: deleteField(),
     postKnowledge: deleteField(),
     postKnowledgeStartedAt: deleteField(),
     postKnowledgeCompletedAt: deleteField(),

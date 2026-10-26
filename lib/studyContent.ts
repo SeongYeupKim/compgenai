@@ -34,6 +34,13 @@ export const READINGS: readonly ReadingSource[] = [
   },
 ] as const;
 
+export const SOURCE_USE_TARGETS: readonly { id: string; label: string }[] = [
+  { id: "motivation", label: "Motivation reading" },
+  { id: "metacognition", label: "Metacognition reading" },
+  { id: "cognitive_learning", label: "Cognitive learning reading" },
+  { id: "genai", label: "GenAI chatbot" },
+] as const;
+
 export const CASE_TITLE = "Why Is Daniel Struggling in Science Class?";
 
 export const CASE_PARAGRAPHS: readonly string[] = [

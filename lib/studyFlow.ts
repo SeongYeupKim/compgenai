@@ -8,6 +8,7 @@ export const STUDY_PHASES: StudyPhase[] = [
   "task_intro",
   "sources",
   "essay",
+  "source_reflection",
   "post_knowledge",
   "demographics",
   "submission_guide",
@@ -36,6 +37,8 @@ export function phaseLabel(phase: StudyPhase): string {
       return "Assigned readings";
     case "essay":
       return "Essay and chatbot";
+    case "source_reflection":
+      return "Reflection of source use";
     case "post_knowledge":
       return "Knowledge check again";
     case "demographics":
@@ -65,6 +68,8 @@ export function phaseShortLabel(phase: StudyPhase): string {
       return "Readings";
     case "essay":
       return "Essay";
+    case "source_reflection":
+      return "Source reflection";
     case "post_knowledge":
       return "Knowledge check again";
     case "demographics":
@@ -93,6 +98,8 @@ export function phaseStartField(phase: StudyPhase): string | null {
       return "sourcesStartedAt";
     case "essay":
       return "essayWorkspaceStartedAt";
+    case "source_reflection":
+      return "sourceUseReflectionStartedAt";
     case "post_knowledge":
       return "postKnowledgeStartedAt";
     case "demographics":

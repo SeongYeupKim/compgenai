@@ -3,7 +3,7 @@
  * Order: identity and timestamps, scales, knowledge tests, essay, chat turns, demographics.
  */
 
-import { READINGS } from "@/lib/studyContent";
+import { READINGS, SOURCE_USE_TARGETS } from "@/lib/studyContent";
 import {
   AIALI_ITEMS,
   KNOWLEDGE_CR_ITEMS,
@@ -186,6 +186,22 @@ function demographicsFlat(p: WideExportParticipant) {
   };
 }
 
+function sourceUseCells(p: WideExportParticipant): string[] {
+  const raw = p.sourceUseReflection;
+  const ratings =
+    raw && typeof raw === "object" && Array.isArray((raw as { ratings?: unknown }).ratings)
+      ? ((raw as { ratings: { sourceId?: string; rating?: unknown; reason?: unknown }[] })
+          .ratings)
+      : [];
+  const cells: string[] = [];
+  for (const item of SOURCE_USE_TARGETS) {
+    const hit = ratings.find((row) => row?.sourceId === item.id);
+    cells.push(hit ? str(hit.rating) : "");
+    cells.push(hit ? str(hit.reason) : "");
+  }
+  return cells;
+}
+
 function sourceDownloadCells(p: WideExportParticipant): string[] {
   const events = Array.isArray(p.sourceDownloads) ? p.sourceDownloads : [];
   const cells: string[] = [];
@@ -243,6 +259,13 @@ export function buildStudyWideExportCsv(
     "essaySubmittedAt",
     "essay_workspace_seconds",
     "essay_text",
+    "sourceUseReflectionStartedAt",
+    "sourceUseReflectionCompletedAt",
+    "source_use_reflection_seconds",
+    ...SOURCE_USE_TARGETS.flatMap((item) => [
+      `source_use_${item.id}_rating`,
+      `source_use_${item.id}_reason`,
+    ]),
     "postKnowledgeStartedAt",
     "postKnowledgeCompletedAt",
     "post_knowledge_seconds",
@@ -314,6 +337,13 @@ export function buildStudyWideExportCsv(
       str(p.essaySubmittedAt),
       durationSecondsIso(p.essayWorkspaceStartedAt, p.essaySubmittedAt),
       str(p.essayText),
+      str(p.sourceUseReflectionStartedAt),
+      str(p.sourceUseReflectionCompletedAt),
+      durationSecondsIso(
+        p.sourceUseReflectionStartedAt,
+        p.sourceUseReflectionCompletedAt,
+      ),
+      ...sourceUseCells(p),
       str(p.postKnowledgeStartedAt) || post.startedAt,
       str(p.postKnowledgeCompletedAt) || post.completedAt,
       durationSecondsIso(

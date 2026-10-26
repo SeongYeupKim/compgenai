@@ -62,13 +62,6 @@ export function EssaySubmissionPanel({
         <div className="mt-3">
           <TaskRequirements />
         </div>
-        <p className="mt-3 text-base leading-7 text-student-ink">
-          Cite a source when you use it. For example,{" "}
-          <strong className="font-semibold underline decoration-2 underline-offset-[3px]">
-            (Ormrod &amp; Jones, 2023; Chatbot)
-          </strong>
-          .
-        </p>
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}

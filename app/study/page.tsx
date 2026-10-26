@@ -23,6 +23,7 @@ import {
   saveDemographics,
   saveEssay,
   saveEssayDraft,
+  saveSourceReflection,
   saveGenaiMessages,
   saveKnowledge,
   saveLikert,
@@ -45,6 +46,7 @@ import { TaskMaterials } from "@/components/TaskMaterials";
 import { SourceLibrary } from "@/components/SourceLibrary";
 import { GenAIInteractionPanel } from "@/components/GenAIInteractionPanel";
 import { EssaySubmissionPanel } from "@/components/EssaySubmissionPanel";
+import { SourceUseReflection } from "@/components/SourceUseReflection";
 import { DemographicsSurvey } from "@/components/DemographicsSurvey";
 import { SubmissionGuide } from "@/components/SubmissionGuide";
 import { StudyRestartGate } from "@/components/StudyRestartGate";
@@ -339,12 +341,21 @@ export default function StudyPage() {
                   onSubmit={async (text) => {
                     await saveEssay(uid, text, genaiMessages);
                     setEssayDraft(text);
-                    setPhase("post_knowledge");
+                    setPhase("source_reflection");
                   }}
                 />
               </div>
             </div>
           </div>
+        )}
+
+        {phase === "source_reflection" && (
+          <SourceUseReflection
+            onSubmit={async (submission) => {
+              await saveSourceReflection(uid, submission);
+              setPhase("post_knowledge");
+            }}
+          />
         )}
 
         {phase === "post_knowledge" && (

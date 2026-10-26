@@ -37,6 +37,11 @@ export function TaskRequirements() {
         <span className="font-semibold">4. </span>
         Essays should be <Mark>under 550 words</Mark>.
       </li>
+      <li>
+        <span className="font-semibold">5. </span>
+        Cite a source when you use it. For example, (Ormrod &amp; Jones, 2023;
+        Chatbot).
+      </li>
     </ol>
   );
 }
