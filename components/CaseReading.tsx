@@ -224,18 +224,26 @@ export function CaseReading({ readerId }: { readerId?: string }) {
         <p className="text-xs font-semibold uppercase tracking-widest text-navy-800">
           Case
         </p>
-        <button
-          type="button"
-          aria-pressed={armed}
-          onClick={() => setArmed((value) => !value)}
-          className={`rounded px-2 py-1 text-xs font-semibold ${
-            armed
-              ? "bg-yellow-200 text-student-ink"
-              : "text-student-muted hover:bg-student-canvas"
-          }`}
-        >
-          Highlight
-        </button>
+        <div className="flex items-center gap-2">
+          <p className="text-sm text-student-muted">
+            You can highlight while reading the case. Click
+          </p>
+          <span aria-hidden="true" className="text-sm text-student-muted">
+            →
+          </span>
+          <button
+            type="button"
+            aria-pressed={armed}
+            onClick={() => setArmed((value) => !value)}
+            className={`rounded px-2 py-1 text-xs font-semibold ${
+              armed
+                ? "bg-yellow-200 text-student-ink"
+                : "text-student-muted hover:bg-student-canvas"
+            }`}
+          >
+            Highlight
+          </button>
+        </div>
       </div>
       <h2 className="mt-2 text-xl font-semibold leading-snug text-student-ink">
         {CASE_TITLE}
