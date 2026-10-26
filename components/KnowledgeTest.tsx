@@ -96,7 +96,7 @@ export function KnowledgeTest({ which, onSubmit }: Props) {
       onSubmit={(e) => void handleSubmit(e)}
       className="mx-auto max-w-3xl space-y-6 pb-12"
     >
-      <div className="rounded-2xl border border-student-border bg-student-card px-5 py-6 shadow-student sm:px-8">
+      <div className="rounded-md border border-student-border bg-student-card px-5 py-6 shadow-student sm:px-8">
         <h2 className="text-xl font-semibold text-student-ink">{title}</h2>
         <p className="mt-3 text-sm leading-relaxed text-student-muted">{intro}</p>
       </div>
@@ -104,11 +104,11 @@ export function KnowledgeTest({ which, onSubmit }: Props) {
       {KNOWLEDGE_MC_ITEMS.map((item, index) => (
         <fieldset
           key={item.id}
-          className="rounded-2xl border border-student-border bg-white px-6 py-6 shadow-sm"
+          className="rounded-md border border-student-border bg-white px-6 py-6 shadow-sm"
         >
           <legend className="sr-only">Question {index + 1}</legend>
           <p className="text-base font-semibold leading-7 text-student-ink">
-            <span className="mr-2 tabular-nums text-teal-800">{index + 1}.</span>
+            <span className="mr-2 tabular-nums text-navy-900">{index + 1}.</span>
             {item.stem}
           </p>
           <div className="mt-4 space-y-2">
@@ -117,12 +117,12 @@ export function KnowledgeTest({ which, onSubmit }: Props) {
               return (
                 <label
                   key={letter}
-                  className="flex cursor-pointer gap-3 rounded-xl border border-student-border px-4 py-3 text-base leading-7 text-student-ink hover:bg-teal-50/60"
+                  className="flex cursor-pointer gap-3 rounded-md border border-student-border px-4 py-3 text-base leading-7 text-student-ink hover:bg-navy-50"
                 >
                   <input
                     type="radio"
                     name={item.id}
-                    className="mt-1 h-4 w-4 accent-teal-700"
+                    className="mt-1 h-4 w-4 accent-navy-800"
                     checked={mc[index] === letter}
                     onChange={() => chooseMc(index, letter)}
                   />
@@ -139,7 +139,7 @@ export function KnowledgeTest({ which, onSubmit }: Props) {
       {KNOWLEDGE_CR_ITEMS.map((item, index) => (
         <div
           key={item.id}
-          className="rounded-2xl border border-student-border bg-white px-6 py-6 shadow-sm"
+          className="rounded-md border border-student-border bg-white px-6 py-6 shadow-sm"
         >
           <label
             htmlFor={item.id}
@@ -152,7 +152,7 @@ export function KnowledgeTest({ which, onSubmit }: Props) {
             value={cr[index]}
             onChange={(e) => editCr(index, e.target.value)}
             rows={5}
-            className="mt-4 w-full rounded-xl border border-student-border px-4 py-3 text-base leading-7 text-student-ink focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/20"
+            className="mt-4 w-full rounded-md border border-student-border px-4 py-3 text-base leading-7 text-student-ink focus:border-navy-700 focus:outline-none focus:ring-2 focus:ring-navy-700/20"
             placeholder="Write your answer…"
           />
         </div>
@@ -166,7 +166,7 @@ export function KnowledgeTest({ which, onSubmit }: Props) {
       <button
         type="submit"
         disabled={!complete || saving}
-        className="rounded-2xl bg-teal-600 px-6 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-teal-700 disabled:opacity-50"
+        className="rounded-md bg-navy-800 px-6 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-navy-900 disabled:opacity-50"
       >
         {saving ? "Saving…" : "Continue"}
       </button>

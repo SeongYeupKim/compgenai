@@ -44,7 +44,7 @@ export function LikertSurvey({
       onSubmit={(e) => void handleSubmit(e)}
       className="mx-auto max-w-5xl space-y-6 pb-12"
     >
-      <div className="rounded-2xl border border-student-border bg-student-card px-6 py-7 shadow-student sm:px-8 sm:py-8">
+      <div className="rounded-md border border-student-border bg-student-card px-6 py-7 shadow-student sm:px-8 sm:py-8">
         <h2 className="text-2xl font-semibold tracking-tight text-student-ink">
           {title}
         </h2>
@@ -53,7 +53,7 @@ export function LikertSurvey({
         </p>
       </div>
 
-      <div className="overflow-x-auto rounded-2xl border border-student-border bg-white shadow-sm">
+      <div className="overflow-x-auto rounded-md border border-student-border bg-white shadow-sm">
         <div className="min-w-[760px]">
           <div className="grid grid-cols-[minmax(18rem,1fr)_repeat(5,6.5rem)] border-b border-student-border bg-student-canvas/70">
             <div className="px-5 py-4 text-xs font-semibold uppercase tracking-wide text-student-muted">
@@ -61,7 +61,7 @@ export function LikertSurvey({
             </div>
             {LIKERT_SCALE.map(({ value, label }) => (
               <div key={value} className="px-2 py-3 text-center">
-                <span className="block text-lg font-semibold tabular-nums leading-none text-teal-800">
+                <span className="block text-lg font-semibold tabular-nums leading-none text-navy-900">
                   {value}
                 </span>
                 <span className="mt-2 flex h-8 items-end justify-center">
@@ -102,7 +102,7 @@ export function LikertSurvey({
                             return next;
                           })
                         }
-                        className="h-5 w-5 accent-teal-700"
+                        className="h-5 w-5 accent-navy-800"
                       />
                     </label>
                   ))}
@@ -121,7 +121,7 @@ export function LikertSurvey({
       <button
         type="submit"
         disabled={!complete || saving}
-        className="rounded-2xl bg-teal-600 px-6 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-teal-700 disabled:opacity-50"
+        className="rounded-md bg-navy-800 px-6 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-navy-900 disabled:opacity-50"
       >
         {saving ? "Saving…" : submitLabel}
       </button>

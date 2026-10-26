@@ -293,7 +293,7 @@ export default function AdminDashboardPage() {
   if (!authed) {
     return (
       <div className="min-h-screen bg-student-canvas px-4 py-10 text-student-ink sm:px-6">
-        <div className="mx-auto max-w-md rounded-2xl border border-student-border bg-white p-8 shadow-student">
+        <div className="mx-auto max-w-md rounded-md border border-student-border bg-white p-8 shadow-student">
           <h1 className="text-center text-2xl font-semibold tracking-tight">
             Researcher export
           </h1>
@@ -308,7 +308,7 @@ export default function AdminDashboardPage() {
                 autoComplete="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="mt-1.5 w-full rounded-xl border border-student-border px-3 py-2.5 text-sm focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/20"
+                className="mt-1.5 w-full rounded-md border border-student-border px-3 py-2.5 text-sm focus:border-navy-700 focus:outline-none focus:ring-2 focus:ring-navy-700/20"
                 required
               />
             </div>
@@ -319,7 +319,7 @@ export default function AdminDashboardPage() {
                 autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1.5 w-full rounded-xl border border-student-border px-3 py-2.5 text-sm focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/20"
+                className="mt-1.5 w-full rounded-md border border-student-border px-3 py-2.5 text-sm focus:border-navy-700 focus:outline-none focus:ring-2 focus:ring-navy-700/20"
                 required
               />
             </div>
@@ -331,14 +331,14 @@ export default function AdminDashboardPage() {
             <button
               type="submit"
               disabled={busy}
-              className="w-full rounded-2xl bg-teal-600 py-3 text-sm font-semibold text-white hover:bg-teal-700 disabled:opacity-50"
+              className="w-full rounded-md bg-navy-800 py-3 text-sm font-semibold text-white hover:bg-navy-900 disabled:opacity-50"
             >
               {busy ? "Checking…" : "Sign in"}
             </button>
           </form>
 
           <p className="mt-8 text-center text-sm text-student-muted">
-            <Link href="/" className="font-medium text-teal-700 hover:underline">
+            <Link href="/" className="font-medium text-navy-800 hover:underline">
               Back to study home
             </Link>
           </p>
@@ -383,13 +383,13 @@ export default function AdminDashboardPage() {
           <button
             type="button"
             onClick={handleLogout}
-            className="shrink-0 rounded-xl border border-student-border bg-white px-4 py-2 text-sm font-semibold shadow-sm hover:bg-student-canvas"
+            className="shrink-0 rounded-md border border-student-border bg-white px-4 py-2 text-sm font-semibold shadow-sm hover:bg-student-canvas"
           >
             Log out
           </button>
         </div>
 
-        <div className="mt-8 rounded-2xl border border-student-border bg-student-card p-6 shadow-student sm:p-8">
+        <div className="mt-8 rounded-md border border-student-border bg-student-card p-6 shadow-student sm:p-8">
           <p className="text-sm">
             <span className="text-student-muted">Signed in: </span>
             <span className="font-medium">{username}</span>
@@ -399,7 +399,7 @@ export default function AdminDashboardPage() {
             type="button"
             disabled={downloadDisabled}
             onClick={() => void handleDownloadCsv()}
-            className="mt-6 w-full rounded-2xl bg-teal-600 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-700 disabled:opacity-50"
+            className="mt-6 w-full rounded-md bg-navy-800 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-navy-900 disabled:opacity-50"
           >
             {downloadLabel}
           </button>
@@ -422,12 +422,12 @@ export default function AdminDashboardPage() {
             </p>
           )}
           {exportHint && (
-            <p className="mt-4 text-sm text-teal-800">{exportHint}</p>
+            <p className="mt-4 text-sm text-navy-900">{exportHint}</p>
           )}
         </div>
 
         <p className="mt-12 text-center text-sm text-student-muted">
-          <Link href="/" className="font-medium text-teal-700 hover:underline">
+          <Link href="/" className="font-medium text-navy-800 hover:underline">
             Back to study home
           </Link>
         </p>

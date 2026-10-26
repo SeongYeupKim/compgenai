@@ -49,16 +49,16 @@ export function EssaySubmissionPanel({
   return (
     <form
       onSubmit={(e) => void handleSubmit(e)}
-      className="flex h-full min-h-0 max-h-full flex-col overflow-hidden rounded-2xl border border-student-border bg-student-card p-5 shadow-student"
+      className="flex h-full min-h-0 max-h-full flex-col overflow-hidden rounded-md border border-student-border bg-student-card p-5 shadow-student"
     >
       <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
-        <p className="text-xs font-semibold uppercase tracking-wide text-student-muted">
+        <p className="text-xs font-semibold uppercase tracking-widest text-navy-800">
           Your essay
         </p>
-        <h2 className="mt-1 text-lg font-semibold text-student-ink">
+        <h2 className="mt-1 text-xl font-semibold text-student-ink">
           Write in your own words
         </h2>
-        <p className="mt-2 text-sm leading-relaxed text-student-muted">
+        <p className="mt-2 text-base leading-7 text-student-ink">
           Use the case, the three readings, and the chat if you want. Stay at or
           under {ESSAY_WORD_LIMIT} words. When you submit, your essay and the full
           chat log are saved together.
@@ -66,7 +66,7 @@ export function EssaySubmissionPanel({
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="mt-4 min-h-[16rem] w-full resize-none rounded-xl border border-student-border bg-white px-3 py-3 text-sm leading-relaxed text-student-ink focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/20"
+          className="mt-4 min-h-[18rem] w-full resize-none rounded-md border border-student-border bg-white px-4 py-3 font-reading text-lg leading-8 text-student-ink focus:border-navy-700 focus:outline-none focus:ring-2 focus:ring-navy-700/20"
           placeholder="Start typing your essay…"
         />
         <p
@@ -83,7 +83,7 @@ export function EssaySubmissionPanel({
       <button
         type="submit"
         disabled={saving || overLimit}
-        className="mt-4 w-full shrink-0 rounded-2xl bg-teal-600 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-teal-700 disabled:opacity-50"
+        className="mt-4 w-full shrink-0 rounded-md bg-navy-800 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-navy-900 disabled:opacity-50"
       >
         {saving ? "Submitting…" : "Submit essay and continue"}
       </button>

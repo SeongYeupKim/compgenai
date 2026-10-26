@@ -15,7 +15,7 @@ export function SourceLibrary({ downloadedIds, onDownload }: Props) {
         return (
           <li
             key={reading.id}
-            className="flex flex-col gap-3 rounded-2xl border border-student-border bg-white px-4 py-4 sm:flex-row sm:items-center sm:justify-between"
+            className="flex flex-col gap-3 rounded-md border border-student-border bg-white px-4 py-4 sm:flex-row sm:items-center sm:justify-between"
           >
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-student-muted">
@@ -30,7 +30,7 @@ export function SourceLibrary({ downloadedIds, onDownload }: Props) {
               href={reading.href}
               download={reading.filename}
               onClick={() => onDownload(reading)}
-              className="shrink-0 rounded-xl bg-teal-600 px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-teal-700"
+              className="shrink-0 rounded-md bg-navy-800 px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-navy-900"
             >
               {opened ? "Download again" : "Download PDF"}
             </a>

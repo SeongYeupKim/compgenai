@@ -31,7 +31,7 @@ export default function HomePage() {
     return (
       <>
         {fromAuth && (
-          <div className="border-b border-amber-200 bg-amber-50 px-4 py-3 text-center text-sm font-medium text-amber-950">
+          <div className="border-b border-navy-200 bg-navy-50 px-4 py-3 text-center text-base font-medium text-navy-900">
             Please read the consent form below, then continue to sign in or
             register.
           </div>

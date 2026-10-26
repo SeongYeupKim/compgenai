@@ -164,7 +164,7 @@ export default function StudyPage() {
   if (!ready || !uid || !phase) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-student-canvas px-6 text-student-muted">
-        <div className="h-8 w-8 animate-pulse rounded-full bg-teal-200" />
+        <div className="h-8 w-8 animate-pulse rounded-full bg-navy-200" />
         <p className="text-sm">Getting your session ready…</p>
       </div>
     );
@@ -172,13 +172,11 @@ export default function StudyPage() {
 
   const { step, total } = getPhaseProgress(phase);
   const mainWidth =
-    phase === "essay"
-      ? "max-w-[1920px]"
+    phase === "essay" || phase === "task_intro"
+      ? "max-w-[1200px]"
       : phase === "aiali" || phase === "trust"
         ? "max-w-5xl"
-        : phase === "task_intro"
-          ? "max-w-3xl"
-          : "max-w-4xl";
+        : "max-w-4xl";
   const allSourcesOpened = READINGS.every((reading) =>
     downloadedIds.includes(reading.id),
   );
@@ -187,9 +185,9 @@ export default function StudyPage() {
     <div className="min-h-screen bg-student-canvas pb-16">
       <header className="sticky top-0 z-10 border-b border-student-border bg-student-card/95 backdrop-blur-sm">
         <div className="mx-auto max-w-[1920px] px-4 py-4">
-          <div className="mb-3 h-1.5 w-full overflow-hidden rounded-full bg-student-border">
+          <div className="mb-3 h-1 w-full overflow-hidden bg-student-border">
             <div
-              className="h-full rounded-full bg-teal-500 transition-all duration-500"
+              className="h-full bg-navy-800 transition-all duration-500"
               style={{ width: `${(step / total) * 100}%` }}
             />
           </div>
@@ -205,7 +203,7 @@ export default function StudyPage() {
             <button
               type="button"
               onClick={() => void handleLogout()}
-              className="shrink-0 rounded-xl border border-student-border bg-white px-3 py-2 text-sm text-student-muted transition hover:bg-student-canvas hover:text-student-ink"
+              className="shrink-0 rounded-md border border-student-border bg-white px-3 py-2 text-sm text-student-muted transition hover:bg-student-canvas hover:text-student-ink"
             >
               Log out
             </button>
@@ -263,7 +261,7 @@ export default function StudyPage() {
         )}
 
         {phase === "task_intro" && (
-          <div className="mx-auto max-w-3xl space-y-6 pb-12">
+          <div className="space-y-6 pb-12">
             <TaskMaterials />
             <p className="text-base leading-7 text-student-muted">
               Next you will download the three readings. They stay available while
@@ -277,7 +275,7 @@ export default function StudyPage() {
                   setPhase("sources");
                 })();
               }}
-              className="rounded-2xl bg-teal-600 px-6 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-teal-700"
+              className="rounded-md bg-navy-800 px-6 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-navy-900"
             >
               Continue to the readings
             </button>
@@ -286,7 +284,7 @@ export default function StudyPage() {
 
         {phase === "sources" && (
           <div className="mx-auto max-w-3xl space-y-6 pb-12">
-            <div className="rounded-2xl border border-student-border bg-student-card px-5 py-6 shadow-student">
+            <div className="rounded-md border border-student-border bg-student-card px-5 py-6 shadow-student">
               <h2 className="text-xl font-semibold text-student-ink">
                 Download the three readings
               </h2>
@@ -308,7 +306,7 @@ export default function StudyPage() {
                   setPhase("essay");
                 })();
               }}
-              className="rounded-2xl bg-teal-600 px-6 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-teal-700 disabled:opacity-50"
+              className="rounded-md bg-navy-800 px-6 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-navy-900 disabled:opacity-50"
             >
               Continue to the essay
             </button>
@@ -321,33 +319,29 @@ export default function StudyPage() {
         )}
 
         {phase === "essay" && (
-          <div className="mx-auto w-full max-w-[min(100%,1680px)] space-y-6">
-            <details className="rounded-2xl border border-amber-200/80 bg-gradient-to-br from-amber-50 to-orange-50/50 px-5 py-5 shadow-student" open>
-              <summary className="cursor-pointer text-sm font-semibold text-student-ink">
-                Case and task instructions
-              </summary>
+          <div className="mx-auto w-full space-y-6 pb-8">
+            <TaskMaterials />
+            <section className="border border-student-border bg-white px-6 py-6">
+              <h2 className="text-lg font-semibold text-student-ink">Readings</h2>
+              <p className="mt-1 text-base leading-7 text-student-muted">
+                Open a reading again if you need it while you write.
+              </p>
               <div className="mt-4">
-                <TaskMaterials compact />
-              </div>
-            </details>
-            <div className="rounded-2xl border border-student-border bg-white px-5 py-5 shadow-sm">
-              <h2 className="text-sm font-semibold text-student-ink">Readings</h2>
-              <div className="mt-3">
                 <SourceLibrary
                   downloadedIds={downloadedIds}
                   onDownload={(source) => void handleSourceDownload(source)}
                 />
               </div>
-            </div>
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-stretch">
-              <div className="h-[min(72vh,640px)] min-h-0 min-w-0">
+            </section>
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:items-stretch">
+              <div className="h-[min(78vh,760px)] min-h-0 min-w-0">
                 <GenAIInteractionPanel
                   messages={genaiMessages}
                   onMessagesChange={persistMessages}
                   className="h-full min-h-0"
                 />
               </div>
-              <div className="h-[min(72vh,640px)] min-h-0 min-w-0">
+              <div className="h-[min(78vh,760px)] min-h-0 min-w-0">
                 <EssaySubmissionPanel
                   initialText={essayDraft}
                   onDraftChange={persistDraft}
@@ -406,7 +400,7 @@ export default function StudyPage() {
         )}
 
         {phase === "complete" && postCompleteUI === "thanks" && (
-          <div className="mx-auto max-w-lg rounded-2xl border border-teal-200 bg-gradient-to-br from-teal-50 to-emerald-50 px-8 py-10 text-center shadow-student">
+          <div className="mx-auto max-w-lg rounded-md border border-navy-200 bg-gradient-to-br from-navy-50 to-emerald-50 px-8 py-10 text-center shadow-student">
             <h1 className="text-2xl font-semibold text-student-ink">Thank you</h1>
             <p className="mt-3 text-sm font-medium leading-relaxed text-student-muted">
               Your responses are saved. Keep the PDF you downloaded and upload
@@ -415,7 +409,7 @@ export default function StudyPage() {
             <button
               type="button"
               onClick={() => void handleLogout()}
-              className="mt-8 rounded-2xl bg-teal-700 px-6 py-3 text-sm font-semibold text-white hover:bg-teal-800"
+              className="mt-8 rounded-md bg-navy-800 px-6 py-3 text-sm font-semibold text-white hover:bg-navy-900"
             >
               Log out
             </button>

@@ -1,100 +1,92 @@
 "use client";
 
+import type { ReactNode } from "react";
 import {
   CASE_PARAGRAPHS,
   CASE_TITLE,
   TASK_DO_NOT_PASTE,
   TASK_GENAI_NOTE,
-  TASK_INTRO,
-  TASK_PROMPTS,
 } from "@/lib/studyContent";
 
-type Props = {
-  compact?: boolean;
-};
-
-export function TaskMaterials({ compact = false }: Props) {
-  if (compact) {
-    return (
-      <div className="space-y-6 text-student-ink">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-widest text-teal-800">
-            Case
-          </p>
-          <h2 className="mt-1 font-reading text-2xl font-semibold leading-snug">
-            {CASE_TITLE}
-          </h2>
-          <div className="mt-4 space-y-4 font-reading text-base leading-7">
-            {CASE_PARAGRAPHS.map((paragraph) => (
-              <p key={paragraph.slice(0, 40)}>{paragraph}</p>
-            ))}
-          </div>
-        </div>
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-widest text-student-muted">
-            Task
-          </p>
-          <p className="mt-3 font-reading text-base leading-7">{TASK_INTRO}</p>
-          <ol className="mt-4 space-y-3">
-            {TASK_PROMPTS.map((prompt, index) => (
-              <li key={prompt.title} className="text-base leading-7">
-                <span className="font-semibold">
-                  {index + 1}. {prompt.title}
-                </span>{" "}
-                {prompt.detail}
-              </li>
-            ))}
-          </ol>
-          <p className="mt-4 text-base leading-7">{TASK_GENAI_NOTE}</p>
-          <p className="mt-3 text-base font-semibold leading-7">{TASK_DO_NOT_PASTE}</p>
-        </div>
-      </div>
-    );
-  }
-
+function Mark({ children }: { children: ReactNode }) {
   return (
-    <div className="space-y-6">
-      <article className="rounded-2xl border border-student-border bg-white px-6 py-8 shadow-student sm:px-10 sm:py-10">
-        <p className="text-xs font-semibold uppercase tracking-widest text-teal-800">
+    <strong className="font-semibold underline decoration-2 underline-offset-[3px]">
+      {children}
+    </strong>
+  );
+}
+
+export function TaskMaterials() {
+  return (
+    <div className="grid items-start gap-4 lg:grid-cols-2">
+      <article className="border border-student-border bg-white px-6 py-7 sm:px-8">
+        <p className="text-xs font-semibold uppercase tracking-widest text-navy-800">
           Case
         </p>
-        <h2 className="mt-3 font-reading text-3xl font-semibold leading-tight text-student-ink">
+        <h2 className="mt-2 font-reading text-2xl font-semibold leading-snug text-student-ink">
           {CASE_TITLE}
         </h2>
-        <div className="mt-6 space-y-5 font-reading text-lg leading-8 text-student-ink">
+        <div className="mt-5 space-y-4 font-reading text-lg leading-8 text-student-ink">
           {CASE_PARAGRAPHS.map((paragraph) => (
-            <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+            <p key={paragraph.slice(0, 48)}>{paragraph}</p>
           ))}
         </div>
       </article>
 
-      <section className="rounded-2xl border border-student-border bg-white px-6 py-8 shadow-student sm:px-10 sm:py-10">
-        <p className="text-xs font-semibold uppercase tracking-widest text-teal-800">
-          Your task
+      <section className="border border-student-border bg-white px-6 py-7 sm:px-8">
+        <p className="text-xs font-semibold uppercase tracking-widest text-navy-800">
+          Task
         </p>
+        <h2 className="mt-2 text-2xl font-semibold leading-snug text-student-ink">
+          What to write
+        </h2>
         <p className="mt-4 font-reading text-lg leading-8 text-student-ink">
-          {TASK_INTRO}
+          Imagine that you are an educational consultant asked to help Ms. Carter
+          understand and address Daniel&apos;s learning difficulties. Drawing on
+          the classroom case and the three assigned educational psychology texts
+          (you don&apos;t have to cite all three sources), write an essay (
+          <Mark>no longer than 550 words</Mark>) addressing the following:
         </p>
-        <ol className="mt-6 space-y-4">
-          {TASK_PROMPTS.map((prompt, index) => (
-            <li
-              key={prompt.title}
-              className="rounded-xl border border-student-border bg-student-canvas/60 px-5 py-4"
-            >
-              <p className="text-base font-semibold text-student-ink">
-                {index + 1}. {prompt.title}
-              </p>
-              <p className="mt-2 text-base leading-7 text-student-ink">
-                {prompt.detail}
-              </p>
-            </li>
-          ))}
+        <ol className="mt-5 space-y-4">
+          <li className="border border-student-border bg-student-canvas px-4 py-4">
+            <p className="text-base font-semibold text-student-ink">
+              1. Diagnose the problems.
+            </p>
+            <p className="mt-2 font-reading text-lg leading-8 text-student-ink">
+              Identify <Mark>at least three</Mark> distinct learning or
+              motivational problems Daniel is experiencing. For each problem,
+              explain what evidence from the classroom case supports your
+              identification.
+            </p>
+          </li>
+          <li className="border border-student-border bg-student-canvas px-4 py-4">
+            <p className="text-base font-semibold text-student-ink">
+              2. Interpret the problems.
+            </p>
+            <p className="mt-2 font-reading text-lg leading-8 text-student-ink">
+              Apply relevant educational psychology theories or concepts from the
+              assigned texts to <Mark>explain why</Mark> Daniel may be
+              experiencing these difficulties. Your explanations should connect
+              their psychological mechanisms to specific case evidence.
+            </p>
+          </li>
+          <li className="border border-student-border bg-student-canvas px-4 py-4">
+            <p className="text-base font-semibold text-student-ink">
+              3. Recommend solutions.
+            </p>
+            <p className="mt-2 font-reading text-lg leading-8 text-student-ink">
+              <Mark>Propose instructional strategies</Mark> Ms. Carter could use
+              to address the identified problems. Explain how each strategy
+              follows from your theoretical interpretation and why it may support
+              Daniel&apos;s learning.
+            </p>
+          </li>
         </ol>
-        <p className="mt-6 rounded-xl bg-teal-50 px-5 py-4 text-base leading-7 text-student-ink">
+        <p className="mt-5 font-reading text-lg leading-8 text-student-ink">
           {TASK_GENAI_NOTE}
         </p>
         <p className="mt-4 text-base font-semibold leading-7 text-student-ink">
-          {TASK_DO_NOT_PASTE}
+          <Mark>{TASK_DO_NOT_PASTE}</Mark>
         </p>
       </section>
     </div>

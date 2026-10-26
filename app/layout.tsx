@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { DM_Sans, Source_Serif_4 } from "next/font/google";
+import { Source_Sans_3, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 
-const dmSans = DM_Sans({
+const sourceSans = Source_Sans_3({
   subsets: ["latin"],
   display: "swap",
 });
@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${dmSans.className} ${sourceSerif.variable} min-h-screen bg-student-canvas text-student-ink antialiased`}
+        className={`${sourceSans.className} ${sourceSerif.variable} min-h-screen bg-student-canvas text-student-ink antialiased`}
       >
         {children}
       </body>
