@@ -5,7 +5,6 @@ import {
   CASE_PARAGRAPHS,
   CASE_TITLE,
   TASK_DO_NOT_PASTE,
-  TASK_GENAI_NOTE,
 } from "@/lib/studyContent";
 
 function Mark({ children }: { children: ReactNode }) {
@@ -16,76 +15,76 @@ function Mark({ children }: { children: ReactNode }) {
   );
 }
 
-export function TaskMaterials() {
+export function TaskRequirements() {
+  return (
+    <ol className="space-y-3 text-base leading-7 text-student-ink">
+      <li>
+        <span className="font-semibold">1. </span>
+        Identify <Mark>at least three</Mark> learning or motivational problems
+        Daniel is experiencing.
+      </li>
+      <li>
+        <span className="font-semibold">2. </span>
+        Interpret the problems with{" "}
+        <Mark>educational psychology theories or concepts</Mark>.
+      </li>
+      <li>
+        <span className="font-semibold">3. </span>
+        <Mark>Recommend solutions</Mark> to address the identified problems.
+      </li>
+      <li>
+        <span className="font-semibold">4. </span>
+        Essays should be <Mark>under 550 words</Mark>.
+      </li>
+    </ol>
+  );
+}
+
+export function TaskMaterials({ caseOnly = false }: { caseOnly?: boolean }) {
+  const caseCard = (
+    <article className="border border-student-border bg-white px-6 py-6 sm:px-7">
+      <p className="text-xs font-semibold uppercase tracking-widest text-navy-800">
+        Case
+      </p>
+      <h2 className="mt-2 text-xl font-semibold leading-snug text-student-ink">
+        {CASE_TITLE}
+      </h2>
+      <div
+        className={`mt-4 space-y-4 text-base leading-7 text-student-ink ${
+          caseOnly ? "max-h-72 overflow-y-auto pr-2" : ""
+        }`}
+      >
+        {CASE_PARAGRAPHS.map((paragraph) => (
+          <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+        ))}
+      </div>
+    </article>
+  );
+
+  if (caseOnly) return caseCard;
+
   return (
     <div className="grid items-start gap-4 lg:grid-cols-2">
-      <article className="border border-student-border bg-white px-6 py-7 sm:px-8">
-        <p className="text-xs font-semibold uppercase tracking-widest text-navy-800">
-          Case
-        </p>
-        <h2 className="mt-2 font-reading text-2xl font-semibold leading-snug text-student-ink">
-          {CASE_TITLE}
-        </h2>
-        <div className="mt-5 space-y-4 font-reading text-lg leading-8 text-student-ink">
-          {CASE_PARAGRAPHS.map((paragraph) => (
-            <p key={paragraph.slice(0, 48)}>{paragraph}</p>
-          ))}
-        </div>
-      </article>
-
-      <section className="border border-student-border bg-white px-6 py-7 sm:px-8">
+      {caseCard}
+      <section className="border border-student-border bg-white px-6 py-6 sm:px-7">
         <p className="text-xs font-semibold uppercase tracking-widest text-navy-800">
           Task
         </p>
-        <h2 className="mt-2 text-2xl font-semibold leading-snug text-student-ink">
+        <h2 className="mt-2 text-xl font-semibold leading-snug text-student-ink">
           What to write
         </h2>
-        <p className="mt-4 font-reading text-lg leading-8 text-student-ink">
-          Imagine that you are an educational consultant asked to help Ms. Carter
-          understand and address Daniel&apos;s learning difficulties. Drawing on
-          the classroom case and the three assigned educational psychology texts
-          (you don&apos;t have to cite all three sources), write an essay (
-          <Mark>no longer than 550 words</Mark>) addressing the following:
+        <p className="mt-3 text-base leading-7 text-student-ink">
+          You are helping Ms. Carter understand Daniel. Use the case and the
+          three readings. Your essay needs these four things:
         </p>
-        <ol className="mt-5 space-y-4">
-          <li className="border border-student-border bg-student-canvas px-4 py-4">
-            <p className="text-base font-semibold text-student-ink">
-              1. Diagnose the problems.
-            </p>
-            <p className="mt-2 font-reading text-lg leading-8 text-student-ink">
-              Identify <Mark>at least three</Mark> distinct learning or
-              motivational problems Daniel is experiencing. For each problem,
-              explain what evidence from the classroom case supports your
-              identification.
-            </p>
-          </li>
-          <li className="border border-student-border bg-student-canvas px-4 py-4">
-            <p className="text-base font-semibold text-student-ink">
-              2. Interpret the problems.
-            </p>
-            <p className="mt-2 font-reading text-lg leading-8 text-student-ink">
-              Apply relevant educational psychology theories or concepts from the
-              assigned texts to <Mark>explain why</Mark> Daniel may be
-              experiencing these difficulties. Your explanations should connect
-              their psychological mechanisms to specific case evidence.
-            </p>
-          </li>
-          <li className="border border-student-border bg-student-canvas px-4 py-4">
-            <p className="text-base font-semibold text-student-ink">
-              3. Recommend solutions.
-            </p>
-            <p className="mt-2 font-reading text-lg leading-8 text-student-ink">
-              <Mark>Propose instructional strategies</Mark> Ms. Carter could use
-              to address the identified problems. Explain how each strategy
-              follows from your theoretical interpretation and why it may support
-              Daniel&apos;s learning.
-            </p>
-          </li>
-        </ol>
-        <p className="mt-5 font-reading text-lg leading-8 text-student-ink">
-          {TASK_GENAI_NOTE}
+        <div className="mt-4">
+          <TaskRequirements />
+        </div>
+        <p className="mt-5 text-base leading-7 text-student-ink">
+          You may use the chatbot. Your own essay still has to use the case and
+          the readings. When you use a source, cite it.
         </p>
-        <p className="mt-4 text-base font-semibold leading-7 text-student-ink">
+        <p className="mt-3 text-base font-semibold leading-7 text-student-ink">
           <Mark>{TASK_DO_NOT_PASTE}</Mark>
         </p>
       </section>

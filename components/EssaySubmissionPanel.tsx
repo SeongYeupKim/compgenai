@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { countWords, ESSAY_WORD_LIMIT } from "@/lib/studyContent";
+import { TaskRequirements } from "@/components/TaskMaterials";
 
 type Props = {
   initialText: string;
@@ -56,17 +57,15 @@ export function EssaySubmissionPanel({
           Your essay
         </p>
         <h2 className="mt-1 text-xl font-semibold text-student-ink">
-          Write in your own words
+          What your essay needs
         </h2>
-        <p className="mt-2 text-base leading-7 text-student-ink">
-          Use the case, the three readings, and the chat if you want. Stay at or
-          under {ESSAY_WORD_LIMIT} words. When you submit, your essay and the full
-          chat log are saved together.
-        </p>
+        <div className="mt-3">
+          <TaskRequirements />
+        </div>
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="mt-4 min-h-[18rem] w-full resize-none rounded-md border border-student-border bg-white px-4 py-3 font-reading text-lg leading-8 text-student-ink focus:border-navy-700 focus:outline-none focus:ring-2 focus:ring-navy-700/20"
+          className="mt-4 min-h-[16rem] w-full resize-none rounded-md border border-student-border bg-white px-4 py-3 text-base leading-7 text-student-ink focus:border-navy-700 focus:outline-none focus:ring-2 focus:ring-navy-700/20"
           placeholder="Start typing your essay…"
         />
         <p

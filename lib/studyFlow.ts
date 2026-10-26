@@ -49,6 +49,35 @@ export function phaseLabel(phase: StudyPhase): string {
   }
 }
 
+export function phaseShortLabel(phase: StudyPhase): string {
+  switch (phase) {
+    case "study_consent":
+      return "Consent";
+    case "aiali":
+      return "GenAI and learning";
+    case "trust":
+      return "Trust in GenAI";
+    case "prior_knowledge":
+      return "Knowledge check";
+    case "task_intro":
+      return "Case and task";
+    case "sources":
+      return "Readings";
+    case "essay":
+      return "Essay";
+    case "post_knowledge":
+      return "Knowledge check again";
+    case "demographics":
+      return "About you";
+    case "submission_guide":
+      return "Submission";
+    case "complete":
+      return "Done";
+    default:
+      return phase;
+  }
+}
+
 /** Top-level timestamp written the first time a phase is shown. */
 export function phaseStartField(phase: StudyPhase): string | null {
   switch (phase) {

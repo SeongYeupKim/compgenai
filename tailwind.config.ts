@@ -36,7 +36,7 @@ const config: Config = {
         student: "0 1px 3px rgba(26, 46, 61, 0.06), 0 0 0 1px rgba(26, 46, 61, 0.04)",
       },
       fontFamily: {
-        reading: ["var(--font-reading)", "Georgia", "serif"],
+        reading: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
       },
     },
   },

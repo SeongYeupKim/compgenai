@@ -33,6 +33,7 @@ import {
   markStudyCompletedInThisBrowserSession,
 } from "@/lib/studySessionMarkers";
 import { phaseLabel, phaseStartField } from "@/lib/studyFlow";
+import { StudyProgress } from "@/components/StudyProgress";
 import { getPhaseProgress } from "@/lib/studyProgress";
 import { AIALI_ITEMS, TRUST_ITEMS } from "@/lib/scales";
 import { READINGS, type ReadingSource } from "@/lib/studyContent";
@@ -171,49 +172,39 @@ export default function StudyPage() {
   }
 
   const { step, total } = getPhaseProgress(phase);
-  const mainWidth =
-    phase === "essay" || phase === "task_intro"
-      ? "max-w-[1200px]"
-      : phase === "aiali" || phase === "trust"
-        ? "max-w-5xl"
-        : "max-w-4xl";
   const allSourcesOpened = READINGS.every((reading) =>
     downloadedIds.includes(reading.id),
   );
 
   return (
     <div className="min-h-screen bg-student-canvas pb-16">
-      <header className="sticky top-0 z-10 border-b border-student-border bg-student-card/95 backdrop-blur-sm">
-        <div className="mx-auto max-w-[1920px] px-4 py-4">
-          <div className="mb-3 h-1 w-full overflow-hidden bg-student-border">
-            <div
-              className="h-full bg-navy-800 transition-all duration-500"
-              style={{ width: `${(step / total) * 100}%` }}
-            />
+      <header className="sticky top-0 z-10 border-b border-student-border bg-white">
+        <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-4 py-4">
+          <div>
+            <p className="text-lg font-semibold tracking-tight text-student-ink">
+              Multiple sources with GenAI
+            </p>
+            <p className="text-sm text-student-muted">
+              {phase === "complete"
+                ? "Done"
+                : `Step ${step} of ${total - 1} · ${phaseLabel(phase)}`}
+            </p>
           </div>
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <p className="text-xs font-medium uppercase tracking-wide text-student-muted">
-                Step {step} of {total}
-              </p>
-              <p className="mt-0.5 text-lg font-semibold text-student-ink">
-                {phaseLabel(phase)}
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={() => void handleLogout()}
-              className="shrink-0 rounded-md border border-student-border bg-white px-3 py-2 text-sm text-student-muted transition hover:bg-student-canvas hover:text-student-ink"
-            >
-              Log out
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => void handleLogout()}
+            className="shrink-0 rounded-md border border-student-border bg-white px-3 py-2 text-sm text-student-muted transition hover:bg-student-canvas hover:text-student-ink"
+          >
+            Log out
+          </button>
         </div>
       </header>
 
-      <main
-        className={`mx-auto px-3 pt-8 sm:px-4 ${mainWidth}`}
-      >
+      <div className="mx-auto grid max-w-[1400px] items-start gap-5 px-3 pt-6 sm:px-4 lg:grid-cols-[16.5rem_minmax(0,1fr)]">
+        <aside className="lg:sticky lg:top-[5.5rem]">
+          <StudyProgress phase={phase} />
+        </aside>
+      <main className="min-w-0">
         {phase === "study_consent" && (
           <InformedConsentScreen
             variant="study"
@@ -320,7 +311,7 @@ export default function StudyPage() {
 
         {phase === "essay" && (
           <div className="mx-auto w-full space-y-6 pb-8">
-            <TaskMaterials />
+            <TaskMaterials caseOnly />
             <section className="border border-student-border bg-white px-6 py-6">
               <h2 className="text-lg font-semibold text-student-ink">Readings</h2>
               <p className="mt-1 text-base leading-7 text-student-muted">
@@ -427,6 +418,7 @@ export default function StudyPage() {
           />
         )}
       </main>
+      </div>
     </div>
   );
 }
