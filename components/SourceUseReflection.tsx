@@ -62,13 +62,13 @@ export function SourceUseReflection({ onSubmit }: Props) {
       </div>
 
       {SOURCE_USE_TARGETS.map((item) => (
-        <fieldset
+        <section
           key={item.id}
           className="rounded-md border border-student-border bg-white px-6 py-5"
         >
-          <legend className="text-base font-semibold text-student-ink">
+          <h3 className="text-base font-semibold leading-7 text-student-ink">
             {item.label}
-          </legend>
+          </h3>
           <p className="mt-3 text-sm text-student-muted">
             1 = did not use it · 10 = used it a great deal
           </p>
@@ -114,7 +114,7 @@ export function SourceUseReflection({ onSubmit }: Props) {
             rows={4}
             className="mt-2 w-full resize-y rounded-md border border-student-border bg-white px-3 py-2 text-base leading-7 text-student-ink focus:border-navy-700 focus:outline-none focus:ring-2 focus:ring-navy-700/20"
           />
-        </fieldset>
+        </section>
       ))}
 
       {error && (

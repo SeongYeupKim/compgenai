@@ -35,9 +35,21 @@ export const READINGS: readonly ReadingSource[] = [
 ] as const;
 
 export const SOURCE_USE_TARGETS: readonly { id: string; label: string }[] = [
-  { id: "motivation", label: "Motivation reading" },
-  { id: "metacognition", label: "Metacognition reading" },
-  { id: "cognitive_learning", label: "Cognitive learning reading" },
+  {
+    id: "motivation",
+    label:
+      "Source 1. Motivational Beliefs and Achievement Behavior (Ormrod & Jones, 2023)",
+  },
+  {
+    id: "metacognition",
+    label:
+      "Source 2. Metacognition and Self-Regulated Learning (Woolfolk, 2016)",
+  },
+  {
+    id: "cognitive_learning",
+    label:
+      "Source 3. Knowledge Organization and Meaningful Learning (Ormrod et al., 2020)",
+  },
   { id: "genai", label: "GenAI chatbot" },
 ] as const;
 
