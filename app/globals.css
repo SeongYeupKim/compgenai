@@ -18,4 +18,24 @@ body {
   .prose-study a {
     @apply text-brand-600 underline;
   }
+
+  .case-scroll {
+    overflow-y: scroll;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: #1e407c #e8eef6;
+  }
+
+  .case-scroll::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .case-scroll::-webkit-scrollbar-track {
+    background: #e8eef6;
+  }
+
+  .case-scroll::-webkit-scrollbar-thumb {
+    background: #1e407c;
+    border-radius: 999px;
+  }
 }

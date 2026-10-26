@@ -51,7 +51,7 @@ export function TaskMaterials({ caseOnly = false }: { caseOnly?: boolean }) {
       </h2>
       <div
         className={`mt-4 space-y-4 text-base leading-7 text-student-ink ${
-          caseOnly ? "max-h-72 overflow-y-auto pr-2" : ""
+          caseOnly ? "case-scroll max-h-72 pr-3" : ""
         }`}
       >
         {CASE_PARAGRAPHS.map((paragraph) => (

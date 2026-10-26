@@ -201,8 +201,20 @@ export default function StudyPage() {
       </header>
 
       <div className="mx-auto grid max-w-[1400px] items-start gap-5 px-3 pt-6 sm:px-4 lg:grid-cols-[16.5rem_minmax(0,1fr)]">
-        <aside className="lg:sticky lg:top-[5.5rem]">
+        <aside className="space-y-3 lg:sticky lg:top-[5.5rem]">
           <StudyProgress phase={phase} />
+          {phase === "essay" && (
+            <div className="rounded-md border border-student-border bg-white px-4 py-3">
+              <p className="text-sm font-semibold text-student-ink">
+                Download readings
+              </p>
+              <SourceLibrary
+                plain
+                downloadedIds={downloadedIds}
+                onDownload={(source) => void handleSourceDownload(source)}
+              />
+            </div>
+          )}
         </aside>
       <main className="min-w-0">
         {phase === "study_consent" && (
@@ -312,18 +324,6 @@ export default function StudyPage() {
         {phase === "essay" && (
           <div className="mx-auto w-full space-y-6 pb-8">
             <TaskMaterials caseOnly />
-            <section className="border border-student-border bg-white px-6 py-6">
-              <h2 className="text-lg font-semibold text-student-ink">Readings</h2>
-              <p className="mt-1 text-base leading-7 text-student-muted">
-                Open a reading again if you need it while you write.
-              </p>
-              <div className="mt-4">
-                <SourceLibrary
-                  downloadedIds={downloadedIds}
-                  onDownload={(source) => void handleSourceDownload(source)}
-                />
-              </div>
-            </section>
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:items-stretch">
               <div className="h-[min(78vh,760px)] min-h-0 min-w-0">
                 <GenAIInteractionPanel
